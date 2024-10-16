@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #89CFF0, #FFDEE9);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #333333;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 12px;
+            border: 2px solid #dddddd;
+            border-radius: 5px;
+            background-color: #F9FAFB;
+            font-size: 16px;
+            color: #333333;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .secondary-btn {
+            background-color: #017BFF;
+            margin-top: 15px;
+        }
+
+        .secondary-btn:hover {
+            background-color: #005FCC;
+        }
+
+        .forgot-password-btn {
+            background-color: transparent;
+            color: #017BFF;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .forgot-password-btn:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h1>Login</h1>
+    <form method="post" action="/login">
+        <div class="input-group">
+            <input type="text" id="customer_id" name="Customer_ID" maxlength="6" placeholder="Customer ID" value=<%= cid %> required>
+        </div>
+        <div class="input-group">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn">Log In</button>
+    </form>
+
+    <form method="get" action="/register">
+        <button class="btn secondary-btn">Create Account</button>
+    </form>
+
+    <form method="get" action="/recovery">
+        <button class="forgot-password-btn">Forgot Password?</button>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="index.js" charset="UTF-8"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: ghostwhite;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .profile-card {
+            background: black;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .profile-header h2 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .profile-header p {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .profile-info {
+            font-size: large;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .profile-info p {
+            color: ghostwhite;
+            margin: 10px 0;
+            font-size: 25px;
+        }
+
+        .edit-button {
+            background-color: #ff6347;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 18px;
+        }
+
+        .edit-button:hover {
+            background-color: #e5533d;
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+            padding: 8px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .save-button {
+            background-color: green;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .save-button:hover {
+            background-color: darkgreen;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <h1 style="color: ivory">Profile</h1>
+            <p>Bank Account Management</p>
+
+
+        </div>
+        <div class="profile-info">
+            <p><strong>Name:</strong> <span id="name"><%= pname %></span></p>
+            <input type="text" id="nameInput" class="hidden" placeholder="Enter new name">
+            <p><strong>Email:</strong> <span id="email"><%= pemail %></span></p>
+            <input type="email" id="emailInput" class="hidden" placeholder="Enter new email">
+            <p><strong>Phone Number:</strong> <span id="phone"><%= pphno %></span></p>
+            <input type="tel" id="phoneInput" class="hidden" placeholder="Enter new phone number">
+            <p><strong>Address:</strong> <span id="address"><%= padr %></span></p>
+            <input type="text" id="addressInput" class="hidden" placeholder="Enter new address">
+        </div>
+
+        <button class="edit-button">Edit Profile</button>
+        <input type="password" id="passwordInput" class="hidden" placeholder="Enter password">
+        <button class="save-button hidden">Save</button>
+<form method="get" action="./"  >
+                                                                                                                       <input type="submit" value="home"></input>
+                                                                                                                    </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.edit-button').click(function() {
+            $('#passwordInput').removeClass('hidden');
+        });
+
+        $('#passwordInput').on('keypress', function(e) {
+            if (e.which == 13) {
+                $('#nameInput, #emailInput, #phoneInput, #addressInput').removeClass('hidden');
+                $('#passwordInput').addClass('hidden');
+                $('.save-button').removeClass('hidden');
+            }
+        });
+
+        $('.save-button').click(function() {
+            const password = $('#passwordInput').val();
+            const newName = $('#nameInput').val();
+            const newEmail = $('#emailInput').val();
+            const newPhone = $('#phoneInput').val();
+            const newAddress = $('#addressInput').val();
+
+            $.ajax({
+                url: '/profile',
+                type: 'POST',
+                data: {
+                    password: password,
+                    name: newName,
+                    email: newEmail,
+                    phone: newPhone,
+                    address: newAddress
+                },
+                success: function(response) {
+                    if (response === 'Customer updated successfully') {
+                        $('#name').text(newName || '<%= pname %>');
+                        $('#email').text(newEmail || '<%= pemail %>');
+                        $('#phone').text(newPhone || '<%= pphno %>');
+                        $('#address').text(newAddress || '<%= padr %>');
+
+                        alert('Profile updated successfully');
+
+                    } else {
+                        alert(response);
+                    }
+                },
+                error: function(err) {
+                    alert('password is incorrect ');
+                }
+            });
+
+            $('#nameInput, #emailInput, #phoneInput, #addressInput').addClass('hidden');
+            $('.save-button').addClass('hidden');
+        });
+    });
+</script>
+
+</body>
+</html>

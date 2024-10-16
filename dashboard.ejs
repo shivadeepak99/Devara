@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        .pp {
+            font-size: 50px;
+        }
+        span {
+            font-size: 30px;
+        }
+        #checkbal{
+            display: flex;
+            flex-direction: row;
+        }
+
+    #checkbal > b{
+    text-align:left}
+        .butt{
+            background-color: #4CAF50; color: white; border: none;  text-align: center; font-size: 20px; cursor: pointer; border-radius: 8px; height: auto;  padding: 10px;"
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="container">
+            <div class="c header" >
+                <img src="../assets/asset1.jpg" width="300px">
+                <br>
+                <b id="pp">Welcome, <%= Naam %> </b>
+                <span>Customer ID: <%= cid %></span>
+                <% if (isNewUser) { %>
+                <script>
+                    alert('Note your Customer ID for future logins: <%= cid %> !!');
+                </script>
+                <% } %>
+                <button class="profile" style="font-size: xx-large;">
+                    <img style="height: 40px; width: 40px" src="../assets/dropdown.svg">
+                </button>
+                <div class="profile_card">
+                    <form method="get" action="/profile">
+                        <button type="submit" class="dash">Profile</button>
+                    </form>
+                    <form method="get" action="/logout">
+                        <button type="submit" class="dash">Log Out</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="c dashboard">
+                <button class="dash" id="transactions">Account-Details</button>
+                <button class="dash" id="withdraw">Withdraw</button>
+                <button class="dash" id="deposit">Deposit</button>
+                <form method="get" action="./trans_history">
+                <button class="dash" id="history"  type="submit">Transaction history</button></form>
+                <button class="dash" id="loan">Apply for Loan</button>
+                <form method="get" action="./help">
+                    <button class="dash" id="help">Help :</button></form>
+            </div>
+
+            <div class="c content">
+                <div class="info transactions">
+                     <div id="checkbal">
+                         <b >Account.No:</b>
+                    <input class="styled" type="text" value="<%= Account_NO %>" readonly  >
+                   </div> <div id="checkbal">  <b >Account.Type:</b> <input class="styled" type="text"  value="<%= Account_type %>" readonly >
+                  </div>  <div id="checkbal">   <b >Date of creation:</b><input class="styled" type="text"  value="<%=  created_date %>" readonly >
+                 </div>  <div id="checkbal">   <b >Branch Name:</b> <input class="styled" type="text"  value="<%= branch_name %>" readonly >
+</div>
+
+                    <div id="checkbal">
+                            <form method="get" action="./bal">
+                                                <input type="button"  class="butt" value="check balance"></form>
+                    <input id="bal" class="styled" type="text" value="<%= %>"  readonly >
+
+                </div>
+                </div>
+
+                <div class="info withdraw">
+                    <form action="./withdraw" method="post">
+                    <input class="styled" type="text"  name="Account_no"  placeholder="Enter Account ID" required>
+                    <input class="styled" type="text"  name="Customer_ID"  placeholder="Confirm customer ID" required>
+                    <input class="styled" type="text"   name="withdraw_amount" placeholder="Enter amount to be withdrawn" required>
+                        <button type="submit" class="butt"  >Confirm</button>
+                    </form>
+                </div>
+
+                <div class="info deposit">
+                    <form action="./deposit" method="post">
+
+                    <input class="styled" type="text"  name="Account_no" placeholder="Enter account number" required>
+                    <input class="styled" type="text"   name="password"  placeholder="Enter password" required>
+                    <input class="styled" type="number" name="deposit_amount" placeholder="Enter amount" required>
+                    <button class="butt" type="submit" >Confirm</button>
+                    </form>
+                </div>
+                <div class="info loan">
+                    <form method="post"  action="./apply_loan">
+                    <input class="styled" type="text" placeholder="Enter account number" required>
+                    <input class="styled" type="text" placeholder="Enter password" required>
+                    <input class="styled" type="text" placeholder="Enter Loan amount" required>
+                    <select class="styled">
+                        <option value="Educational">Educational</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Home">Home</option>
+                        <option value="Business">Business</option>
+                        <option value="Others">Others</option>
+                    </select>
+                    <button class="butt">Confirm</button></form>
+                </div>
+
+                <div class="info help"></div>
+            </div>
+
+            <footer class="c foot">
+                Contact Us at: Maharashtra, Nagpur, Barsi-Nagar
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Email-id: NBImaharashtra@gmail.com
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../index.js" charset="UTF-8"></script>
+</body>
+</html>
